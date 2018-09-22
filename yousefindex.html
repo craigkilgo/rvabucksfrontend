@@ -70,6 +70,14 @@ function changeExp(newexp)
 
 	});
 }
+function returnUserJSON()
+{
+	var userData;
+firebase.database().ref('users/'+globalUserName).once("value").then(function(snapshot){
+userData=snapshot.val();
+console.log(userData);
+});
+}
 </script>
 </head>
 <body>
