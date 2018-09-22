@@ -1,0 +1,73 @@
+<html>
+<head>
+	<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
+	 
+
+<script type="text/javascript">
+	var config={
+	apiKey:"AIzaSyC5EuoydXwtQjjibe0e093t_fvfZaOnnwY",
+	authDomain: "rvabucks.firebaseapp.com",
+    databaseURL: "https://rvabucks.firebaseio.com",
+    storageBucket: "rvabucks.appspot.com"
+};
+var globalUserName;
+ firebase.initializeApp(config);
+var defaultDatabase=firebase.database();
+function newUser(userId,password)
+{
+	firebase.database().ref('users/'+userId).set({ID:userId,EXP:0,TIER:1,PASSWORD:"dummypass",BALANCE:0});
+	globalUserName=userId;
+
+}
+function changeBalance(quantity)
+{
+	var balanceRef= firebase.database().ref("users");
+	var balance=0;
+	firebase.database().ref('/users/'+globalUserName).once("value").then(function(snapshot){
+		balance=snapshot.val().BALANCE;
+		var id=snapshot.val().ID;
+		var exp=snapshot.val().EXP;
+		var tier=snapshot.val().TIER;
+		var password=snapshot.val().PASSWORD;
+
+		console.log(balance);
+
+		var newBalance=balance+quantity;
+		var postData={ID:id,EXP:0,TIER:1,PASSWORD:"dummypass",BALANCE:newBalance};
+	var updates={};
+	updates['/'+globalUserName+'/']=postData;
+	firebase.database().ref('users').update(updates);
+
+	});
+	
+}
+function changeExp(newexp)
+{
+	var expRef= firebase.database().ref("users");
+	var exp=0;
+	firebase.database().ref('/users/'+globalUserName).once("value").then(function(snapshot){
+		exp=snapshot.val().EXP;
+		var id=snapshot.val().ID;
+		var balance=snapshot.val().BALANCE;
+		var tier=snapshot.val().TIER;
+		var password=snapshot.val().PASSWORD;
+
+		console.log(balance);
+
+		var updatedEXP=exp+newexp;
+		var postData={ID:id,EXP:updatedEXP,TIER:1,PASSWORD:"dummypass",BALANCE:balance};
+	var updates={};
+	updates['/'+globalUserName+'/']=postData;
+	firebase.database().ref('users').update(updates);
+
+	});
+}
+</script>
+</head>
+<body>
+<section id="loginpage">
+	
+</section>
+
+</body>
+</html>
