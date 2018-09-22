@@ -41,11 +41,12 @@ function changeBalance(quantity)
         var exp=snapshot.val().EXP;
         var tier=snapshot.val().TIER;
         var password=snapshot.val().PASSWORD;
+        var fullname= snapshot.val().FULLNAME;
 
         console.log(balance);
 
         var newBalance=balance+quantity;
-        var postData={ID:id,EXP:0,TIER:1,PASSWORD:"dummypass",BALANCE:newBalance};
+        var postData={ID:id,EXP:0,TIER:1,PASSWORD:"dummypass",BALANCE:newBalance,FULLNAME:fullname};
     var updates={};
     updates['/'+globalUserName+'/']=postData;
     firebase.database().ref('users').update(updates);
@@ -63,7 +64,7 @@ function changeExp(newexp)
         var balance=snapshot.val().BALANCE;
         var tier=snapshot.val().TIER;
         var password=snapshot.val().PASSWORD;
-
+        var fullname= snapshot.val().FULLNAME;
         console.log(balance);
 
         var updatedEXP=exp+newexp;
@@ -71,10 +72,10 @@ function changeExp(newexp)
         {
             tier+=Math.floor(updatedEXP/10);
             updatedEXP=updatedEXP%10;
-            var postData={ID:id,EXP:updatedEXP,TIER:tier,PASSWORD:"dummypass",BALANCE:balance};
+            var postData={ID:id,EXP:updatedEXP,TIER:tier,PASSWORD:"dummypass",BALANCE:balance,FULLNAME:fullname};
         }
         else{
-        var postData={ID:id,EXP:updatedEXP,TIER:1,PASSWORD:"dummypass",BALANCE:balance};
+        var postData={ID:id,EXP:updatedEXP,TIER:1,PASSWORD:"dummypass",BALANCE:balance,FULLNAME:fullname};
     }
     var updates={};
     updates['/'+globalUserName+'/']=postData;
@@ -92,7 +93,12 @@ updateUI();
 }
 function updateUI()
 {
-document.getElementById("money").innerHTML=userData.BALANCE;
+document.getElementById("money").innerHTML="$"+userData.BALANCE;
+document.getElementById("Full Name").innerHTML=userData.FULLNAME;
+document.getElementById("username").innerHTML=userData.ID;
+
+
+
 }
 </script>
     <style>
@@ -193,8 +199,8 @@ document.getElementById("money").innerHTML=userData.BALANCE;
                             </figure>
                         </div>
                         <div class="media-content">
-                            <p class="title is-4">John Smith</p>
-                            <p class="subtitle is-6">@johnsmith</p>
+                            <p id="Full Name" class="title is-4">John Smith</p>
+                            <p id="username" class="subtitle is-6">@johnsmith</p>
                         </div>
                     </div>
                 </div>
