@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <!-- Bulma Version 0.7.1-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
-        <script src="firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>
 <script type="text/javascript">
     var config={
     apiKey:"AIzaSyC5EuoydXwtQjjibe0e093t_fvfZaOnnwY",
