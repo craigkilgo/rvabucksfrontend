@@ -24,9 +24,5 @@ class Welcome extends CI_Controller {
 		$this->load->view('login');
 	}
 
-	public function welcome()
-	{
-		$this->load->view('header');
-		$this->load->view('login');
-	}
+
 }
