@@ -1,5 +1,5 @@
 
-
+<div class="container">
 <div class="field">
   <label class="label">Name</label>
   <div class="control">
@@ -83,6 +83,8 @@
   <div class="control">
     <button class="button is-text">Cancel</button>
   </div>
+</div>
+
 </div>
 
 
