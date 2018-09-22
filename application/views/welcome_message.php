@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     font-weight:bold;
 }
 
-</style>>
+</style>
 </head>
 
 <body>
