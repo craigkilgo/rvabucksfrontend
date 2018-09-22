@@ -1,0 +1,4 @@
+#!/bin/sh
+git add --all
+git commit -m "craig commit"
+git push origin master
