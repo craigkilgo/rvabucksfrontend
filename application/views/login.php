@@ -84,7 +84,7 @@
                 $('#loginDiv').hide();
                 $('#loginBox').show();
             });
-            $('#delete').on('clicl touchstart', function(){
+            $('#delete').on('click touchstart', function(){
                 $('#errmessage').hide();
             });
 

@@ -152,7 +152,7 @@ document.getElementById("username").innerHTML=userData.ID;
                 </div>
 
                 <div class="card-content">
-                    <div id="money" class="money">$<span id="moneyAmt">0.00</span></div>
+
                 <?php
                 function generateRandomString($length = 10) {
                     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -166,6 +166,7 @@ document.getElementById("username").innerHTML=userData.ID;
 
                 if($session['verified']){
                     echo '
+                    <div id="money" class="money">$<span id="moneyAmt">0.00</span></div>
                   <div class="field has-addons" id="largeButtonGroup">
                         <p class="control">
                             <a id="paybucks" class="button is-large is-warning is-outlined">
@@ -184,8 +185,9 @@ document.getElementById("username").innerHTML=userData.ID;
                         </p>
                     </div>';
                     }else{
+                        echo '<p class="control">Please verify your identity with Capital One before depositing.</p>';
                         $curl = curl_init();
-                        $api_url = 'https://api-sandbox.capitalone.com/identity/proof/tools/web-button?redirectURI=https://rvabucks.io/main';
+                        $api_url = 'https://api-sandbox.capitalone.com/identity/proof/tools/web-button?redirectURI=https://rvabucks.io';
                         $api_token = 'Authorization: Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicGNrIjoxLCJhbGciOiJkaXIiLCJ0diI6Miwia2lkIjoicjRxIn0..H6Sw1a5Ljq8oUoTDAwU8EA._ZpzOJF4sldE310Nw8DIR26wcbRYps1s5uYUcco6kJomL3FFCpkjVoyj9I4QG1J_J6qiqD_D6meEhkyAC3f32ly1IZwo8aOhP_K20SvgBq0sS7E6a2VDwv0X1SuB3jtxNQ2QAxGYXKFUmSwD0Jnxaieeo2HXS4pGnAICAOdToF7KPIZOck6d7QQU_6pLOnlGAqzwtyW_OZx2TlQ_8woZaNwVCJJR3-PXo-y2e3KN9TcQ6mYMolI_X01I-iW7R81W1q4zrB0oYbmYAwQkwrjOZfQRXnTmoyEVRLka6hNkHBs.5XMYzb_zyyM5f6YYUlUEtg';
 
                         curl_setopt_array($curl, array(
@@ -326,8 +328,8 @@ credit_card
     <script>
              function updateBalance(){
             var formData1 = new FormData();
-        formData1.append('id',<?php echo $session['id']?>);
-        var fetchData = {
+            formData1.append('id',<?php echo $session['id']?>);
+            var fetchData = {
                             method: 'POST',
                             body: formData1,
                             headers: new Headers()
@@ -353,10 +355,11 @@ credit_card
                     }
     $(document).ready(function(){
         $('#notification').on('click touchstart', '*', function() {
-            if($(this).hasClass('hasClass')){
+
                 $('#notification').html('');
             
         });
+        console.log('line 360');
         $('#payuserBtn').on('click touchstart',function(){
             var payData = new FormData();
                 payData.append('id',<?php echo $session['id']?>);
@@ -391,6 +394,7 @@ credit_card
                             
                         });
         });
+        console.log('line 394');
                     updateBalance();
         $('#generateqr').on('click touchstart',function(){
             var qrData = new FormData();

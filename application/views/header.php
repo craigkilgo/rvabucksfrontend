@@ -31,7 +31,7 @@
 <body>
 <nav class="navbar is-transparent">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
+    <a class="navbar-item" href="https://rvabucks.io">
       <img src="https://rvabucks.io/img/logo2.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
     </a>
 
@@ -62,5 +62,3 @@
   
 
       <img src="https://rvabucks.io/img/logo2.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
-
-
