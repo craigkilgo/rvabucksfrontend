@@ -32,8 +32,11 @@ class Main extends CI_Controller {
 					'email'  => $user['email'],
 					'username'  => $user['username'],
 					'id' => $user['id'],
-					'verified'=> $user['verified']
+					'verified'=> $user['verified'],
+					'exp'=> $user['exp'],
+					'level'=> $user['level'],
 			);
+	
 
 			$this->session->set_userdata($arraydata);
 
