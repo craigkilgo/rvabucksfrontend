@@ -138,20 +138,6 @@ class Api extends CI_Controller {
         $this->load->model('Codes');
         $this->Codes->put($data);
 
-        $curl = curl_init();
-            $api_url = 'https://api-sandbox.capitalone.com/oauth2/token';
-            $api_token = '';
-
-            curl_setopt_array($curl, array(
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL => $api_url,
-                CURLOPT_HTTPHEADER => array(
-                'Accept: text/html;v=1','Content-Type:application/x-www-form-urlencoded')
-                )
-            );
-
-                        $result = curl_exec($curl);
-                        echo $result;
 
     }
 }
