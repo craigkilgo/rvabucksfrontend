@@ -80,11 +80,11 @@
     <script>
          $(document).ready(function(){
 
-            $('#loginBtn').bind('touchend click',function(){
+            $('#loginBtn').bind('click touchend',function(){
                 $('#loginDiv').hide();
                 $('#loginBox').show();
             });
-            $('#delete').on('clicl touchstart', function(){
+            $('#delete').on('click touchstart', function(){
                 $('#errmessage').hide();
             });
 
