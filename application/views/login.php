@@ -80,7 +80,7 @@
     <script>
          $(document).ready(function(){
 
-            $('#loginBtn').bind('touchstart click',function(){
+            $('#loginBtn').bind('click touchend',function(){
                 $('#loginDiv').hide();
                 $('#loginBox').show();
             });
