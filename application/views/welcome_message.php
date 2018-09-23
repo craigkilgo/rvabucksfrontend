@@ -352,12 +352,12 @@ credit_card
 
                     }
     $(document).ready(function(){
-        $('#notification').on('click', '*', function() {
-            
+        $('#notification').on('click touchstart', '*', function() {
+            if($(this).hasClass('hasClass')){
                 $('#notification').html('');
             
         });
-        $('#payuserBtn').click(function(){
+        $('#payuserBtn').on('click touchstart',function(){
             var payData = new FormData();
                 payData.append('id',<?php echo $session['id']?>);
                 payData.append('amount',$('#payAmount').val()*100);
@@ -392,7 +392,7 @@ credit_card
                         });
         });
                     updateBalance();
-        $('#generateqr').click(function(){
+        $('#generateqr').on('click touchstart',function(){
             var qrData = new FormData();
                 qrData.append('id',<?php echo $session['id']?>);
                 qrData.append('amount',$('#amount2').val()*100);
@@ -417,36 +417,36 @@ credit_card
                         });
         });
 
-        $('.dollar').click(function(){
+        $('.dollar').on('click touchstart',function(){
             $('#amount').val($(this).data('amount'));
             console.log($(this).data('amount'));
 
         });
-        $('.dollar2').click(function(){
+        $('.dollar2').on('click touchstart',function(){
             $('#amount2').val($(this).data('amount'));
             //console.log($(this).data('amount'));
 
         });
 
-        $('#getbucks').click(function(){
+        $('#getbucks').on('click touchstart',function(){
             $('#moneyDiv').show();
         });
-        $('#paybucks').click(function(){
+        $('#paybucks').on('click touchstart',function(){
             $('#modal').addClass('is-active');
         });
-        $('#makecharge').click(function(){
+        $('#makecharge').on('click touchstart',function(){
             $('#modal1').addClass('is-active');
         });
-        $('#deleteModal').click(function(){
+        $('#deleteModal').on('click touchstart',function(){
             $('#modal').removeClass('is-active');
         });
-        $('#modalCancel').click(function(){
+        $('#modalCancel').on('click touchstart',function(){
             $('#modal').removeClass('is-active');
         });
-        $('#deleteModal2').click(function(){
+        $('#deleteModal2').on('click touchstart',function(){
             $('#modal1').removeClass('is-active');
         });
-        $('#modalCancel2').click(function(){
+        $('#modalCancel2').on('click touchstart',function(){
             $('#modal1').removeClass('is-active');
         });
     });
