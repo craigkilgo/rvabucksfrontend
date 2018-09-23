@@ -134,7 +134,7 @@ document.getElementById("username").innerHTML=userData.ID;
 
     <div class="columns body-columns">
         <div class="column is-half is-offset-one-quarter">
-
+            <div id="notification"></div>
 
             <div class="card">
                 <div class="header">
@@ -231,22 +231,21 @@ credit_card
 <div class="modal" id="modal">
 <div class="modal-background"></div>
   <div class="modal-card">
-      <form>
         <header class="modal-card-head">
         <p class="modal-card-title">Username or Token</p>
         <button id="deleteModal" class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-            <input class="input" type="text" placeholder="@john"><br>
-            <input style="margin-top:5px;" class="input" type="number" placeholder="$0"><br>
+            <input class="input" type="text" name="username" id="payUsername" placeholder="@john"><br>
+            <input style="margin-top:5px;" name="amount" id="payAmount" class="input" type="number" placeholder="$0"><br>
             or<br>
-            <input class="input" type="text" placeholder="Charge token">
+            <input class="input" name="chargestring" type="text" id="payChargeString" placeholder="Charge token">
+            
         </section>
         <footer class="modal-card-foot">
-        <button class="button is-warning">Pay</button>
-        <button id="modalCancel" class="button">Cancel</button>
+            <button id="payuserBtn" class="button is-warning">Pay</button>
+            <button id="modalCancel" class="button">Cancel</button>
         </footer>
-    </form>
   </div>
 </div>
 <div class="modal" id="modal1">
@@ -322,7 +321,45 @@ credit_card
 
                     }
     $(document).ready(function(){
+        $('#notification').on('click', '*', function() {
+            if($(this).hasClass('hasClass')){
+                $('#notification').html('');
+            }
+        });
+        $('#payuserBtn').click(function(){
+            var payData = new FormData();
+                payData.append('id',<?php echo $session['id']?>);
+                payData.append('amount',$('#payAmount').val()*100);
+                payData.append('username',$('#payUsername').val());
+                payData.append('chargestring',$('#payChargeString').val());
 
+                var fetchData3 = {
+                            method: 'POST',
+                            body: payData,
+                            headers: new Headers()
+                        };
+                        fetch('<?php echo base_url()?>api/payuser', fetchData3) // Call the fetch function passing the url of the API as a parameter
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function(data) {
+                            console.log(data);
+                            var amount = data.amount / 100;
+                            $('#modal').removeClass('is-active');
+                            var string = `
+                            <div class="notification is-success">
+                            <button class="delete not-delete"></button>
+                                You have successfully paid `+data.payee+` $`+amount+`.
+                            </div>
+                            `;
+                            
+                            $('#notification').html(string);
+                            updateBalance();
+                        })
+                        .catch(function(error) {
+                            // This is where you run code if the server returns any errors
+                            console.log(error);
+                            
+                        });
+        });
                     updateBalance();
         $('#generateqr').click(function(){
             var qrData = new FormData();

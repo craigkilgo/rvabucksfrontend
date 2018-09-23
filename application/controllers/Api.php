@@ -94,7 +94,31 @@ class Api extends CI_Controller {
     }
 
     public function payuser(){
+        $this->load->model('Tx');
+        $this->load->model('Charges');
+        $this->load->model('Users');
         $post = $this->input->post();
-        
+
+        if($post['chargestring'] !=''){
+            $chargeArr = explode("-",$post['chargestring']);
+            $from = $post['id'];
+            $to = $chargeArr[0];
+            $amount = $chargeArr[1];
+            $token = $chargeArr[2];
+            $this->Tx->send($from,$to,$amount);
+
+            $this->Charges->markpaid($token);
+
+            $payee = $this->Users->get_id($to);
+
+            $data['json']['payee'] = $payee['name'];
+            $data['json']['amount'] = $amount;
+            $this->load->view('json',$data);
+        }else{
+
+
+        }
+
+
     }
 }
