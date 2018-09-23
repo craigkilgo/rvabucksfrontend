@@ -102,6 +102,7 @@ document.getElementById("username").innerHTML=userData.ID;
 
 }
 */
+console.log(`<?php var_dump($session)?>`);
 </script>
 
 <!--
@@ -164,7 +165,7 @@ document.getElementById("username").innerHTML=userData.ID;
                     return $randomString;
                 }
 
-                if($session['verified']){
+                if($session['verified']==1){
                     echo '
                     <div id="money" class="money">$<span id="moneyAmt">0.00</span></div>
                   <div class="field has-addons" id="largeButtonGroup">
