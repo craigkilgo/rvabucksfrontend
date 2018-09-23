@@ -32,7 +32,6 @@ class Welcome extends CI_Controller {
 		if(isset($session['token'])){
 			header('Location: '.base_url().'main');
 		}else{
-			$this->load->view('header');
 			$this->load->view('login');
 		}
 
@@ -67,5 +66,34 @@ class Welcome extends CI_Controller {
 		
 		$this->load->view('dump',$data);
 	}
+
+	public function signup(){
+		$this->load->view('header');
+		$this->load->view('signup');
+	}
+	
+	public function signedup(){
+		$post = $this->input->post();
+
+		$this->load->model('Users');
+		$users = $this->Users->get_all();
+		$exist = false;
+		foreach($users as $u){
+			if($u['email']==$post['email']){
+				$exist = true;	
+			}
+		}
+		
+		if(!$exist){
+			$this->Users->add($post);
+		}else{
+			$this->load->view('header');
+			$this->load->view('errors/user_already.php');
+		}
+
+
+
+	}
+
 
 }

@@ -3,9 +3,7 @@
 $curl = curl_init();
         $api_url = 'https://api-sandbox.capitalone.com/oauth2/token';
         $api_token = 'Authorization: Basic dHNwcG1vOkhmZWltZmQxd29BTENzYVJv';
-        $data_string = '{
-	        "jql": "issuetype = Epic","startAt":0,"maxResults":500
-        }';
+
 
         curl_setopt_array($curl, array(
             CURLOPT_POST => 1,
