@@ -78,9 +78,9 @@
         </div>
     </section>
     <script>
-        $(document).ready(function(){
+         $(document).ready(function(){
 
-            $('#loginBtn').on('click touchstart',function(){
+            $('#loginBtn').bind('touchstart click',function(){
                 $('#loginDiv').hide();
                 $('#loginBox').show();
             });
