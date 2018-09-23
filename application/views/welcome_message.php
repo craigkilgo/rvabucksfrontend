@@ -171,15 +171,7 @@ console.log(`<?php var_dump($session)?>`);
                 <div class="card-content">
 
                 <?php
-                function generateRandomString($length = 10) {
-                    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    $charactersLength = strlen($characters);
-                    $randomString = '';
-                    for ($i = 0; $i < $length; $i++) {
-                        $randomString .= $characters[rand(0, $charactersLength - 1)];
-                    }
-                    return $randomString;
-                }
+
 
                 if($session['verified']==1){
                     echo '
@@ -211,7 +203,7 @@ console.log(`<?php var_dump($session)?>`);
                             CURLOPT_RETURNTRANSFER => 1,
                             CURLOPT_URL => $api_url,
                             CURLOPT_HTTPHEADER => array(
-                            $api_token,'Accept: text/html;v=1','Correlation-Id: '.generateRandomString()
+                            $api_token,'Accept: text/html;v=1','Correlation-Id: ccid'.$session['id']
                             )
                         ));
 
