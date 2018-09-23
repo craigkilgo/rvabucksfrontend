@@ -115,6 +115,14 @@ document.getElementById("username").innerHTML=userData.ID;
 }
 */
 console.log(`<?php var_dump($session)?>`);
+function loadLevel()
+{
+    var level=<?php echo $session['level']?>;
+    var exp=<?php echo $session['exp']?>;
+
+    var expWidth= (exp*10)+"%";
+    document.getElementById('expBar').style.width=expWidth;
+}
 </script>
 
 <!--
@@ -160,8 +168,8 @@ console.log(`<?php var_dump($session)?>`);
                         <div class="media-content">
                             <p id="FullName" class="title is-4"><?php echo $session['name']?></p>
                             <p id="username" class="subtitle is-6">@<?php echo $session['username']?></p>
-                                                        <p id="FullName" class="title is-4"><?php echo $session['level']?></p>
-<div class="levelContainer"><div class="exp">    <p id="exp" class="subtitle is-6"><?php echo $session['exp']?>XP</p>
+                                                        <p id="LevelStiff" class="title is-4"><?php echo $session['level']?>
+<div class="levelContainer" ><div class="exp" id="expBar" onload="loadLevel()"> <?php echo $session['exp']?>XP</p>
 </div></div>
 
                         </div>
