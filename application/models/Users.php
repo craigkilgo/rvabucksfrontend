@@ -116,4 +116,11 @@ class Users extends CI_Model {
 
     }
 
+    public function verify($id){
+        $data['verified'] = 1;
+        
+        $this->db->where('id',$id);
+        $this->db->update('users',$data);
+    }
+
 }

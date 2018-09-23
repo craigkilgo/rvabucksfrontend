@@ -32,8 +32,8 @@ class Tx extends CI_Model {
 
         $this->db->insert('transactions', $data);
 
-        $exp = floor($amount / 10);
-        
+        $exp = floor($amount / 1000);
+
         $data2['exp'] = $exp;
         $this->db->where('id',$from);
         $this->db->update('users',$data2);

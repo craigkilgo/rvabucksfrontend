@@ -7,23 +7,19 @@ class Prove extends CI_Controller {
     public function identity()
 	{
 
-        $user = $this->Users->get_email($session['email']);
-			$arraydata = array(
-				'name'  => $user['name'],
-				'email'  => $user['email'],
-				'username'  => $user['username'],
-				'id' => $user['id'],
-				'verified'=> $user['verified'],
-				'exp'=> $user['exp'],
-				'level'=> $user['level'],
-        );
+        $this->load->model('Users');
+        $session = $this->session->userdata();
+        $this->Users->verify($session['id']);
+        $arraydata = array(
+            'verified'=> 1
+    );
+
+
+        $this->session->set_userdata($arraydata);
+        header('Location: '.base_url().'main');
+        
         
 
-        $data['code'] = $this->input->get('code', TRUE);
-        $data['state'] = $this->input->get('state', TRUE);
-
-        $this->load->view('header');
-        
     }
 
 }

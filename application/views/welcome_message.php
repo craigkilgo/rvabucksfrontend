@@ -1,139 +1,28 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<!--
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RVA Bucks</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
-    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>-->
+
     <script src="https://checkout.stripe.com/checkout.js"></script>
     <script type="text/javascript" src="https://identity-sandbox.capitalone.com/c1-identity-buttons/js/script.min.js"></script>
-<style>
-.levelContainer{
-    width: 100%;
-    background-color:#ddd; 
-}
-.exp
-{
-    width:10%;
-    background-color: green;
-}
-#LevelStiff,#expP
-{
-    display: inline;
-}
-#bigContainer
-{
-    text-align: center;
-}
-</style>
-<script type="text/javascript">
-/*
-    var config={
-    apiKey:"AIzaSyC5EuoydXwtQjjibe0e093t_fvfZaOnnwY",
-    authDomain: "rvabucks.firebaseapp.com",
-    databaseURL: "https://rvabucks.firebaseio.com",
-    storageBucket: "rvabucks.appspot.com"
-};
-var globalUserName="Yousef";
-var userData;
- firebase.initializeApp(config);
-var defaultDatabase=firebase.database();
-function newUser(userId,password)
-{
-    firebase.database().ref('users/'+userId).set({ID:userId,EXP:0,TIER:1,PASSWORD:"dummypass",BALANCE:0});
-    globalUserName=userId;
 
-}
-function changeBalance(quantity)
-{
-    var balanceRef= firebase.database().ref("users");
-    var balance=0;
-    firebase.database().ref('/users/'+globalUserName).once("value").then(function(snapshot){
-        balance=snapshot.val().BALANCE;
-        var id=snapshot.val().ID;
-        var exp=snapshot.val().EXP;
-        var tier=snapshot.val().TIER;
-        var password=snapshot.val().PASSWORD;
-        var fullname= snapshot.val().FULLNAME;
+<script>
 
-        console.log(balance);
-
-        var newBalance=balance+quantity;
-        var postData={ID:id,EXP:0,TIER:1,PASSWORD:"dummypass",BALANCE:newBalance,FULLNAME:fullname};
-    var updates={};
-    updates['/'+globalUserName+'/']=postData;
-    firebase.database().ref('users').update(updates);
-
-    });
-    
-}
-function changeExp(newexp)
-{
-    var expRef= firebase.database().ref("users");
-    var exp=0;
-    firebase.database().ref('/users/'+globalUserName).once("value").then(function(snapshot){
-        exp=snapshot.val().EXP;
-        var id=snapshot.val().ID;
-        var balance=snapshot.val().BALANCE;
-        var tier=snapshot.val().TIER;
-        var password=snapshot.val().PASSWORD;
-        var fullname= snapshot.val().FULLNAME;
-        console.log(balance);
-
-        var updatedEXP=exp+newexp;
-        if(updatedEXP>10)
-        {
-            tier+=Math.floor(updatedEXP/10);
-            updatedEXP=updatedEXP%10;
-            var postData={ID:id,EXP:updatedEXP,TIER:tier,PASSWORD:"dummypass",BALANCE:balance,FULLNAME:fullname};
-        }
-        else{
-        var postData={ID:id,EXP:updatedEXP,TIER:1,PASSWORD:"dummypass",BALANCE:balance,FULLNAME:fullname};
-    }
-    var updates={};
-    updates['/'+globalUserName+'/']=postData;
-    firebase.database().ref('users').update(updates);
-
-    });
-}
-function returnUserJSON()
-{
-firebase.database().ref('users/'+globalUserName).once("value").then(function(snapshot){
-userData=snapshot.val();
-console.log(userData);
-updateUI();
-});
-}
-function updateUI()
-{
-document.getElementById("money").innerHTML="$"+userData.BALANCE;
-document.getElementById("Full Name").innerHTML=userData.FULLNAME;
-document.getElementById("username").innerHTML=userData.ID;
-
-
-
-}
-*/
-console.log(`<?php var_dump($session)?>`);
 function loadLevel()
 {
    
-    var exp=<?php echo $session['exp']?>;
+    var exp='<?php echo $session['exp']?>';
     var level=Math.floor(exp/10)+1;
     exp=exp%10;
-    var expWidth= (exp*10)+"%";
-    document.getElementById('expBar').style.width=expWidth;
-        document.getElementById('LevelStiff').innerHTML="Level "+level;
+    $('#progress').val(exp * 10);
+    
+    //var expWidth= (exp*10)+"%";
 
+    
+    //document.getElementById('expBar').style.width=expWidth;
+    
+    document.getElementById('LevelStiff').innerHTML="Level "+level;
 }
+
 </script>
 
 <!--
@@ -182,11 +71,11 @@ function loadLevel()
                             <div id="bigContainer">
                             <p id="LevelStiff" class="title is-4">Level 1
 </p>
-<div class="levelContainer" >                                                        <div class="exp" id="expBar">  <p id="expP" class="subtitle is-6" ></p></div>
-    <script type="text/javascript">
-        loadLevel();
-    </script>
-</div></div>
+<div class="levelContainer">   
+
+        <progress id="progress" class="progress is-success" value="50" max="100">60%</progress>
+
+</div>
 
                         </div>
                     </div>
@@ -197,7 +86,7 @@ function loadLevel()
                 <?php
 
 
-                if(1==1){
+                if($session['verified']==1){
                     echo '
                     <div id="money" class="money">$<span id="moneyAmt">0.00</span></div>
                   <div class="field has-addons" id="largeButtonGroup">
@@ -359,6 +248,7 @@ credit_card
 </div>
 
     <script>
+        
              function updateBalance(){
             var formData1 = new FormData();
             formData1.append('id',<?php echo $session['id']?>);
@@ -387,6 +277,7 @@ credit_card
 
                     }
     $(document).ready(function(){
+        loadLevel();
         $('#notification').on('click touchstart', '*', function() {
 
                 $('#notification').html('');
@@ -420,6 +311,7 @@ credit_card
                             
                             $('#notification').html(string);
                             updateBalance();
+                            loadLevel();
                         })
                         .catch(function(error) {
                             // This is where you run code if the server returns any errors
@@ -446,6 +338,7 @@ credit_card
                             $('#amount2').val('');
                             $('#qr').attr("src","<?php echo base_url()?>api/qr/"+data.string);
                             $('#chargeToken').html(data.string);
+                            
                         })
                         .catch(function(error) {
                             // This is where you run code if the server returns any errors
