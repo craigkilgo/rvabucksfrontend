@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"ktamas77/firebase-php": "dev-master"
+		"ktamas77/firebase-php": "dev-master",
+		"stripe/stripe-php": "^6.17"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

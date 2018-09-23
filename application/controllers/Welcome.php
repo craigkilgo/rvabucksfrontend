@@ -29,10 +29,11 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$session = $this->session->userdata();
-		if(isset($session['token'])){
+		if(isset($session['email'])){
 			header('Location: '.base_url().'main');
 		}else{
-			$this->load->view('login');
+			$data['error'] = null;
+			$this->load->view('login',$data);
 		}
 
 	}
@@ -53,7 +54,7 @@ class Welcome extends CI_Controller {
 	}
 
 	public function logout(){
-		$keys = array('author_name', 'token');
+		$keys = array('name', 'email','username','id');
 		$this->session->unset_userdata($keys);
 		header('Location: '.base_url());
 	}
@@ -91,9 +92,35 @@ class Welcome extends CI_Controller {
 			$this->load->view('errors/user_already.php');
 		}
 
-
-
 	}
 
+
+	public function attemptLogin(){
+		$post = $this->input->post();
+		$this->load->model('Users');
+
+		$check = $this->Users->check_password($post['email'],$post['pass']);
+
+		if(!$check){
+			$data['error'] = 'Username/password combination did not work.';
+			$this->load->view('login',$data);
+		}else{
+			$user = $this->Users->get_email($post['email']);
+			$arraydata = array(
+				'name'  => $user['name'],
+				'email'  => $user['email'],
+				'username'  => $user['username'],
+				'id' => $user['id']
+		);
+		$data['data']['arraydata'] = $arraydata;
+		$data['data']['user'] = $user;
+
+		$this->session->set_userdata($arraydata);
+
+
+		header('Location: '.base_url().'main');
+		//	$this->load->view('dump',$data);
+		}
+	}
 
 }

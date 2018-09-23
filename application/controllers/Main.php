@@ -20,16 +20,16 @@ class Main extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
-
-    }
+		$session = $this->session->userdata();
+		$data['session'] = $session;
+		if(!isset($session['email'])){
+			header('Location: '.base_url());
+		}else{
+			$this->load->view('header',$data);
+			$this->load->view('welcome_message',$data);
+		}
+	}
     
-    public function signup()
-	{
-        $this->load->view('header');
-		$this->load->view('signup');
-
-    } 
 
 
 }

@@ -34,6 +34,9 @@ class Users extends CI_Model {
         $result_set = $this->db->get_where('users',$where);
         $data = $result_set->result_array();
 
+        if(count($data)==0){
+            return false;
+        }
         $supplied = hash('sha256',$password.(string)$data[0]['salt']);
         if($data[0]['pass']==$supplied){
             return true;
@@ -41,6 +44,29 @@ class Users extends CI_Model {
 
             return false;
         }
+    }
+    public function get_email($email){
+        $where['email'] = $email;
+        $result_set = $this->db->get_where('users',$where);
+        $data = $result_set->result_array();
+        if(count($data)==0){
+            return null;
+        }
+        
+        return $data[0];
+
+    }
+
+    public function get_balance($uid){
+        $where['uid'] = $uid;
+        $this->db->select_sum('amount');
+        $result_set = $this->db->get_where('transactions',$where);
+        $data = $result_set->result_array();
+        if(count($data)==0){
+            return null;
+        }
+        return $data[0];
+
     }
 
 }

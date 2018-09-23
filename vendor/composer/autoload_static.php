@@ -24,6 +24,7 @@ class ComposerStaticInite59bd067e6e107d9e5e9166f0c6f8cf5
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
+            'Stripe\\' => 7,
         ),
         'D' => 
         array (
@@ -50,6 +51,10 @@ class ComposerStaticInite59bd067e6e107d9e5e9166f0c6f8cf5
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
