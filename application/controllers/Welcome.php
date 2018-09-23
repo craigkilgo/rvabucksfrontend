@@ -28,8 +28,20 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->load->model('Users');
 		$session = $this->session->userdata();
 		if(isset($session['email'])){
+			$user = $this->Users->get_email($session['email']);
+			$arraydata = array(
+				'name'  => $user['name'],
+				'email'  => $user['email'],
+				'username'  => $user['username'],
+				'id' => $user['id'],
+				'verified'=> $user['verified']
+		);
+
+		$this->session->set_userdata($arraydata);
+
 			header('Location: '.base_url().'main');
 		}else{
 			$data['error'] = null;

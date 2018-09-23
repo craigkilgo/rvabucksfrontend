@@ -130,4 +130,13 @@ class Api extends CI_Controller {
 
 
     }
+
+    public function getcode(){
+        $data['code'] = $this->input->get('code', TRUE);
+        $data['state'] = $this->input->get('state', TRUE);
+
+        $this->load->model('Codes');
+        $this->Codes->put($data);
+        
+    }
 }

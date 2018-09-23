@@ -14,6 +14,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>-->
     <script src="https://checkout.stripe.com/checkout.js"></script>
+    <script type="text/javascript" src="https://identity-sandbox.capitalone.com/c1-identity-buttons/js/script.min.js"></script>
+
 <script type="text/javascript">
 /*
     var config={
@@ -171,24 +173,24 @@ console.log(`<?php var_dump($session)?>`);
                   <div class="field has-addons" id="largeButtonGroup">
                         <p class="control">
                             <a id="paybucks" class="button is-large is-warning is-outlined">
-                                <span style="color:black;">Pay Bucks</span>
+                                <span style="color:black;">Send</span>
                             </a>
                         </p>
                         <p class="control">
                             <a id="getbucks" class="button is-large is-warning is-outlined">
-                                <span style="color:black;">Buy Bucks</span>
+                                <span style="color:black;">Buy</span>
                             </a>
                         </p>
                         <p class="control">
                             <a id="makecharge" class="button is-large is-warning is-outlined">
-                                <span style="color:black;">Get Bucks</span>
+                                <span style="color:black;">Receive</span>
                             </a>
                         </p>
                     </div>';
                     }else{
                         echo '<p class="control">Please verify your identity with Capital One before depositing.</p>';
                         $curl = curl_init();
-                        $api_url = 'https://api-sandbox.capitalone.com/identity/proof/tools/web-button?redirectURI=https://rvabucks.io';
+                        $api_url = 'https://api-sandbox.capitalone.com/identity/proof/tools/web-button?redirectURI=https://rvabucks.io/api/getcode';
                         $api_token = 'Authorization: Bearer eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwicGNrIjoxLCJhbGciOiJkaXIiLCJ0diI6Miwia2lkIjoicjRxIn0..H6Sw1a5Ljq8oUoTDAwU8EA._ZpzOJF4sldE310Nw8DIR26wcbRYps1s5uYUcco6kJomL3FFCpkjVoyj9I4QG1J_J6qiqD_D6meEhkyAC3f32ly1IZwo8aOhP_K20SvgBq0sS7E6a2VDwv0X1SuB3jtxNQ2QAxGYXKFUmSwD0Jnxaieeo2HXS4pGnAICAOdToF7KPIZOck6d7QQU_6pLOnlGAqzwtyW_OZx2TlQ_8woZaNwVCJJR3-PXo-y2e3KN9TcQ6mYMolI_X01I-iW7R81W1q4zrB0oYbmYAwQkwrjOZfQRXnTmoyEVRLka6hNkHBs.5XMYzb_zyyM5f6YYUlUEtg';
 
                         curl_setopt_array($curl, array(

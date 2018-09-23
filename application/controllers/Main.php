@@ -20,11 +20,23 @@ class Main extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->load->model('Users');
 		$session = $this->session->userdata();
 		$data['session'] = $session;
 		if(!isset($session['email'])){
 			header('Location: '.base_url());
 		}else{
+				$user = $this->Users->get_email($session['email']);
+				$arraydata = array(
+					'name'  => $user['name'],
+					'email'  => $user['email'],
+					'username'  => $user['username'],
+					'id' => $user['id'],
+					'verified'=> $user['verified']
+			);
+
+			$this->session->set_userdata($arraydata);
+
 			$this->load->view('header',$data);
 			$this->load->view('welcome_message',$data);
 		}
