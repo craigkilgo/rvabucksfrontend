@@ -25,6 +25,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     width:10%;
     background-color: green;
 }
+#LevelStiff,#expP
+{
+    display: inline;
+}
+#bigContainer
+{
+    text-align: center;
+}
 </style>
 <script type="text/javascript">
 /*
@@ -167,9 +175,14 @@ function loadLevel()
                         </div>
                         <div class="media-content">
                             <p id="FullName" class="title is-4"><?php echo $session['name']?></p>
-                            <p id="username" class="subtitle is-6">@<?php echo $session['username']?></p>
-                                                        <p id="LevelStiff" class="title is-4"><?php echo $session['level']?>
-<div class="levelContainer" ><div class="exp" id="expBar" onload="loadLevel()"> <?php echo $session['exp']?>XP</p>
+                            <p id="username" class="subtitle is-6" >@<?php echo $session['username']?></p>
+                            <div id="bigContainer">
+                            <p id="LevelStiff" class="title is-4"><?php echo $session['level']?>
+</p>
+<div class="levelContainer" >                                                        <div class="exp" id="expBar">  <p id="expP" class="subtitle is-6" ><?php echo $session['exp']?>XP</p></div>
+    <script type="text/javascript">
+        loadLevel();
+    </script>
 </div></div>
 
                         </div>
