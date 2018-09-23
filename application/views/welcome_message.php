@@ -182,7 +182,7 @@ function loadLevel()
                             <div id="bigContainer">
                             <p id="LevelStiff" class="title is-4">Level 1
 </p>
-<div class="levelContainer" >                                                        <div class="exp" id="expBar">  <p id="expP" class="subtitle is-6" >
+<div class="levelContainer" >                                                        <div class="exp" id="expBar">  <p id="expP" class="subtitle is-6" ></p></div>
     <script type="text/javascript">
         loadLevel();
     </script>
