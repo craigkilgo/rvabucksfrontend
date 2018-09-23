@@ -125,11 +125,14 @@ document.getElementById("username").innerHTML=userData.ID;
 console.log(`<?php var_dump($session)?>`);
 function loadLevel()
 {
-    var level=<?php echo $session['level']?>;
+   
     var exp=<?php echo $session['exp']?>;
-
+    var level=Math.floor(exp/10)+1;
+    exp=exp%10;
     var expWidth= (exp*10)+"%";
     document.getElementById('expBar').style.width=expWidth;
+        document.getElementById('LevelStiff').innerHTML="Level "+level;
+
 }
 </script>
 
@@ -177,7 +180,7 @@ function loadLevel()
                             <p id="FullName" class="title is-4"><?php echo $session['name']?></p>
                             <p id="username" class="subtitle is-6" >@<?php echo $session['username']?></p>
                             <div id="bigContainer">
-                            <p id="LevelStiff" class="title is-4"><?php echo $session['level']?>
+                            <p id="LevelStiff" class="title is-4">Level 1
 </p>
 <div class="levelContainer" >                                                        <div class="exp" id="expBar">  <p id="expP" class="subtitle is-6" ><?php echo $session['exp']?>XP</p></div>
     <script type="text/javascript">
