@@ -147,6 +147,8 @@ document.getElementById("username").innerHTML=userData.ID;
                         <div class="media-content">
                             <p id="FullName" class="title is-4"><?php echo $session['name']?></p>
                             <p id="username" class="subtitle is-6">@<?php echo $session['username']?></p>
+                             <p id="exp" class="subtitle is-6">@<?php echo $session['exp']?></p>
+
                         </div>
                     </div>
                 </div>

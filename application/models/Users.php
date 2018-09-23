@@ -56,7 +56,17 @@ class Users extends CI_Model {
         return $data[0];
 
     }
+    public function get_exp($exp){
+        $where['exp'] = $exp;
+        $result_set = $this->db->get_where('users',$where);
+        $data = $result_set->result_array();
+        if(count($data)==0){
+            return null;
+        }
+        
+        return $data[0];
 
+    }
     public function get_id($id){
         $where['id'] = $id;
         $result_set = $this->db->get_where('users',$where);
