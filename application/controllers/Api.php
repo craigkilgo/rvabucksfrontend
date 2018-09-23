@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 error_reporting(0);
+include('phpqrcode.php');
 class Api extends CI_Controller {
 
 	/**
@@ -49,7 +50,7 @@ class Api extends CI_Controller {
             'source' => $token,
         ]);
         $this->load->model('Tx');
-        $this->Tx->buy($post['uid'],$post['amount']);
+        $this->Tx->buy($post['uid'],$post['full_amount']);
 
         } catch(\Stripe\Error\Card $e) {
             return false;
@@ -57,5 +58,43 @@ class Api extends CI_Controller {
 
 
 
+    }
+
+    public function makecharge(){
+
+        function generateRandomString($length = 10) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            }
+            return $randomString;
+        }
+        
+        $post = $this->input->post();
+        $id = $post['id'];
+        $amount = $post['amount'];
+        $chargeString = $id.'-'.$amount.'-'.generateRandomString();
+        
+        $data['json']['string'] = $chargeString;
+
+        $this->load->model('Charges');
+        $this->Charges->insert($chargeString);
+
+        $this->load->view('json',$data);
+
+
+
+    }
+
+    public function qr($charge){
+        $data['qr'] = $charge;
+        $this->load->view('qr',$data);
+    }
+
+    public function payuser(){
+        $post = $this->input->post();
+        
     }
 }

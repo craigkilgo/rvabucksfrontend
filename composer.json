@@ -11,8 +11,8 @@
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
 	"require": {
-		"php": ">=5.3.7",
-		"ktamas77/firebase-php": "dev-master",
+		"php": "^7.1",
+		"chillerlan/php-qrcode": "^2.0",
 		"stripe/stripe-php": "^6.17"
 	},
 	"suggest": {

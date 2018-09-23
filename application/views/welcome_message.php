@@ -157,12 +157,17 @@ document.getElementById("username").innerHTML=userData.ID;
                   <div class="field has-addons">
                         <p class="control">
                             <a id="paybucks" class="button is-large is-warning is-outlined">
-                            <span style="color:black;">Pay Bucks</span>
+                                <span style="color:black;">Pay Bucks</span>
                             </a>
                         </p>
                         <p class="control">
                             <a id="getbucks" class="button is-large is-warning is-outlined">
-                            <span style="color:black;">Get Bucks</span>
+                                <span style="color:black;">Buy Bucks</span>
+                            </a>
+                        </p>
+                        <p class="control">
+                            <a id="makecharge" class="button is-large is-warning is-outlined">
+                                <span style="color:black;">Get Bucks</span>
                             </a>
                         </p>
                     </div>
@@ -226,23 +231,74 @@ credit_card
 <div class="modal" id="modal">
 <div class="modal-background"></div>
   <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Scan or Enter Token</p>
-      <button id="deleteModal" class="delete" aria-label="close"></button>
-    </header>
-    <section class="modal-card-body">
-      <!-- Content ... -->
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success">Save changes</button>
-      <button class="button">Cancel</button>
-    </footer>
+      <form>
+        <header class="modal-card-head">
+        <p class="modal-card-title">Username or Token</p>
+        <button id="deleteModal" class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <input class="input" type="text" placeholder="@john"><br>
+            <input style="margin-top:5px;" class="input" type="number" placeholder="$0"><br>
+            or<br>
+            <input class="input" type="text" placeholder="Charge token">
+        </section>
+        <footer class="modal-card-foot">
+        <button class="button is-warning">Pay</button>
+        <button id="modalCancel" class="button">Cancel</button>
+        </footer>
+    </form>
   </div>
+</div>
+<div class="modal" id="modal1">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+            <header class="modal-card-head">
+            <p class="modal-card-title">Create Charge</p>
+            <button id="deleteModal2" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+            <div class="field has-addons">
+                            <p class="control">
+                                <a class="button dollar2 is-large is-warning is-outlined" data-amount="10">
+                                <span style="color:black;">$10</span>
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a class="button dollar2 is-large is-warning is-outlined" data-amount="20">
+                                <span style="color:black;">$20</span>
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a class="button dollar2 is-large is-warning is-outlined" data-amount="50">
+                                <span style="color:black;">$50</span>
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a class="button dollar2 is-large is-warning is-outlined" data-amount="100">
+                                <span style="color:black;">$100</span>
+                                </a>
+                            </p>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <div class="control">
+                                <input id="amount2" class="input is-large" type="number" placeholder="$">
+                                </div>
+                            </div>
+                            <button id="generateqr" class="button is-warning">Generate</button><br>
+                            <img id="qr"><br>
+                            <span id="chargeToken"></span>
+            </section>
+            <footer class="modal-card-foot">
+            
+            <button id="modalCancel2" class="button">Cancel</button>
+            </footer>
+    </div>
 </div>
 
     <script>
-    $(document).ready(function(){
-        var formData1 = new FormData();
+             function updateBalance(){
+            var formData1 = new FormData();
         formData1.append('id',<?php echo $session['id']?>);
         var fetchData = {
                             method: 'POST',
@@ -264,24 +320,67 @@ credit_card
                             
                         });
 
+                    }
+    $(document).ready(function(){
 
+                    updateBalance();
+        $('#generateqr').click(function(){
+            var qrData = new FormData();
+                qrData.append('id',<?php echo $session['id']?>);
+                qrData.append('amount',$('#amount2').val()*100);
 
+                var fetchData2 = {
+                            method: 'POST',
+                            body: qrData,
+                            headers: new Headers()
+                        };
+                        fetch('<?php echo base_url()?>api/makecharge', fetchData2) // Call the fetch function passing the url of the API as a parameter
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function(data) {
+                            //console.log('qr: '+data.string);
+                            $('#amount2').val('');
+                            $('#qr').attr("src","<?php echo base_url()?>api/qr/"+data.string);
+                            $('#chargeToken').html(data.string);
+                        })
+                        .catch(function(error) {
+                            // This is where you run code if the server returns any errors
+                            console.log(error);
+                            
+                        });
+        });
 
         $('.dollar').click(function(){
             $('#amount').val($(this).data('amount'));
             console.log($(this).data('amount'));
 
         });
+        $('.dollar2').click(function(){
+            $('#amount2').val($(this).data('amount'));
+            //console.log($(this).data('amount'));
+
+        });
+
         $('#getbucks').click(function(){
             $('#moneyDiv').show();
         });
         $('#paybucks').click(function(){
             $('#modal').addClass('is-active');
         });
+        $('#makecharge').click(function(){
+            $('#modal1').addClass('is-active');
+        });
         $('#deleteModal').click(function(){
             $('#modal').removeClass('is-active');
         });
-
+        $('#modalCancel').click(function(){
+            $('#modal').removeClass('is-active');
+        });
+        $('#deleteModal2').click(function(){
+            $('#modal1').removeClass('is-active');
+        });
+        $('#modalCancel2').click(function(){
+            $('#modal1').removeClass('is-active');
+        });
     });
 
             var handler = StripeCheckout.configure({
@@ -311,12 +410,13 @@ credit_card
                             email: '<?php echo $session['email']?>'
                         }*/
                         var formData = new FormData();
-                        formData.append('amount',$('#amount').val() * 100);
+                        formData.append('amount',parseFloat($('#amount').val() * 100)*0.95);
                         formData.append('currency','usd');
                         formData.append('stripeToken','tok_visa');
                         formData.append('description',description2);
                         formData.append('email','<?php echo $session['email']?>');
                         formData.append('uid','<?php echo $session['id']?>');
+                        formData.append('full_amount',$('#amount').val() * 100);
 
                        /*var toUrlEncoded = function toUrlEncoded(obj) {
                             return Object.keys(obj).map(function (k) {
@@ -337,11 +437,13 @@ credit_card
                         .then(function() {
                             // Your code for handling the data you get from the API
                             $('#moneyDiv').hide();
+                            updateBalance();
                         })
                         .catch(function(error) {
                             // This is where you run code if the server returns any errors
                             //console.log(error);
-                            document.getElementById("box").innerHTML('Something went wrong...  Refresh and try again?');
+                            //document.getElementById("box").innerHTML('Something went wrong...  Refresh and try again?');
+                            updateBalance();
                         });
 
                             }
@@ -355,7 +457,7 @@ credit_card
                               handler.open({
                                 name: '',
                                 description: descript,
-                                amount: $('#amount').val() * 100,
+                                amount: parseFloat($('#amount').val() * 100)*0.95,
                                 email: '<?php echo $session['email']?>',
                                 name: '<?php echo $session['name']?>',
                               });
