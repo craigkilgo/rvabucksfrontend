@@ -10,23 +10,14 @@
                             <img src="https://placehold.it/128x128">
                         </figure>
                         <form>
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input is-large" type="email" placeholder="Your Email" autofocus="">
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <div class="control">
-                                    <input class="input is-large" type="password" placeholder="Your Password">
-                                </div>
-                            </div>
-                            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                            
+                            <a href="<?php echo base_url()?>welcome/basic" class="button is-block is-info is-large is-fullwidth">Login</a>
+                            <br>
+                            <a class="button is-block is-info is-large is-fullwidth">Sign Up</a>
                         </form>
+                    
                     </div>
-                    <p class="has-text-grey">
-                        <a href="../">Sign Up</a> &nbsp;·&nbsp;
-                    </p>
+
                 </div>
             </div>
         </div>

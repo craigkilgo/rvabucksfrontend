@@ -2,7 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
-
+    public function __construct()
+    {
+        parent::__construct();
+ 
+        // load Session Library
+        $this->load->library('session');
+         
+    }
+ 
 	/**
 	 * Index Page for this controller.
 	 *
@@ -20,9 +28,44 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('header');
-		$this->load->view('login');
+		$session = $this->session->userdata();
+		if(isset($session['token'])){
+			header('Location: '.base_url().'main');
+		}else{
+			$this->load->view('header');
+			$this->load->view('login');
+		}
+
 	}
 
+	public function basic(){
+		$arraydata = array(
+            'author_name'  => 'Bob Miller',
+            'token' => '123456789'
+    );
+    $this->session->set_userdata($arraydata);
+	header('Location: '.base_url().'main');
+	}
+
+	public function test(){
+
+	$data['data'] = $this->session->userdata();
+	$this->load->view('dump',$data);
+	}
+
+	public function logout(){
+		$keys = array('author_name', 'token');
+		$this->session->unset_userdata($keys);
+		header('Location: '.base_url());
+	}
+
+	public function testdatabase(){
+
+		$this->load->model('Users');
+		$data['data'] = $this->Users->get_all();
+		//$data['data']= 'null';
+		
+		$this->load->view('dump',$data);
+	}
 
 }

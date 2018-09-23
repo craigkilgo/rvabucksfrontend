@@ -185,7 +185,12 @@ document.getElementById("username").innerHTML=userData.ID;
         <div class="navbar-item is-flex-touch">
             <a class="navbar-item">
                 <i class="material-icons">person_outline</i>
-            </a>
+			</a>
+			<a class="navbar-item" href="<?php echo base_url()?>welcome/logout">
+				<i class="material-icons">
+				power_settings_new
+				</i>
+			</a>
         </div>
     </div>
     <div class="columns body-columns">
