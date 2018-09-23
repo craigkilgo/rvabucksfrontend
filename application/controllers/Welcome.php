@@ -54,7 +54,7 @@ class Welcome extends CI_Controller {
 	}
 
 	public function logout(){
-		$keys = array('name', 'email','username','id');
+		$keys = array('name', 'email','username','id','verified');
 		$this->session->unset_userdata($keys);
 		header('Location: '.base_url());
 	}
@@ -87,6 +87,16 @@ class Welcome extends CI_Controller {
 		
 		if(!$exist){
 			$this->Users->add($post);
+			$arraydata = array(
+				'name'  => $user['name'],
+				'email'  => $user['email'],
+				'username'  => $user['username'],
+				'id' => $user['id'],
+				'verified'=> $user['verified']
+		);
+
+		$this->session->set_userdata($arraydata);
+			header('Location: '.base_url().'main');
 		}else{
 			$this->load->view('header');
 			$this->load->view('errors/user_already.php');
@@ -110,7 +120,8 @@ class Welcome extends CI_Controller {
 				'name'  => $user['name'],
 				'email'  => $user['email'],
 				'username'  => $user['username'],
-				'id' => $user['id']
+				'id' => $user['id'],
+				'verified'=> $user['verified']
 		);
 		$data['data']['arraydata'] = $arraydata;
 		$data['data']['user'] = $user;

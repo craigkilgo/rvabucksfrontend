@@ -60,6 +60,19 @@ class Users extends CI_Model {
     public function get_id($id){
         $where['id'] = $id;
         $result_set = $this->db->get_where('users',$where);
+
+        $data = $result_set->result_array();
+        if(count($data)==0){
+            return null;
+        }
+        
+        return $data[0];
+
+    }
+
+    public function get_un($username){
+        $where['username'] = $username;
+        $result_set = $this->db->get_where('users',$where);
         
         $data = $result_set->result_array();
         if(count($data)==0){

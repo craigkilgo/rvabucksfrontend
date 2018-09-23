@@ -115,8 +115,17 @@ class Api extends CI_Controller {
             $data['json']['amount'] = $amount;
             $this->load->view('json',$data);
         }else{
+            $payee = $this->Users->get_un($post['username']);
+            $from = $post['id'];
+            $to = $payee['id'];
+            $amount = $post['amount'];
 
-
+            $this->Tx->send($from,$to,$amount);
+            
+            $data['json']['payee'] = $payee['name'];
+            $data['json']['amount'] = $amount;
+            
+            $this->load->view('json',$data);
         }
 
 
