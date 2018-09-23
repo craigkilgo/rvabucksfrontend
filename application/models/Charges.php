@@ -21,4 +21,11 @@ class Charges extends CI_Model {
         $this->db->insert('charges', $data);
     }
 
+    public function markpaid($token){
+        $data['paid'] = 1;
+    
+    $this->db->where('token', $token);
+    $this->db->update('charges', $data);
+    }
+
 }

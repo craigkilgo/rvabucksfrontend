@@ -20,4 +20,26 @@ class Tx extends CI_Model {
     $this->db->insert('transactions', $data);
     }
 
+    public function send($from,$to,$amount){
+        //subtract
+        $data = array(
+            'uid' => $from,
+            'amount' => -1 * $amount,
+            'payer' => $to
+        );
+        
+        $this->db->insert('transactions', $data);
+
+
+        //add
+        $data2 = array(
+            'uid' => $to,
+            'amount' => $amount,
+            'payer' => $from
+        );
+    
+        $this->db->insert('transactions', $data2);
+    }
+
+
 }
