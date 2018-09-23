@@ -15,7 +15,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase.js"></script>-->
     <script src="https://checkout.stripe.com/checkout.js"></script>
     <script type="text/javascript" src="https://identity-sandbox.capitalone.com/c1-identity-buttons/js/script.min.js"></script>
-
+<style>
+.levelContainer{
+    width: 100%;
+    background-color:#ddd; 
+}
+.exp
+{
+    width:10%;
+    background-color: green;
+}
+</style>
 <script type="text/javascript">
 /*
     var config={
@@ -150,7 +160,9 @@ console.log(`<?php var_dump($session)?>`);
                         <div class="media-content">
                             <p id="FullName" class="title is-4"><?php echo $session['name']?></p>
                             <p id="username" class="subtitle is-6">@<?php echo $session['username']?></p>
-                             <p id="exp" class="subtitle is-6">@<?php echo $session['exp']?></p>
+                                                        <p id="FullName" class="title is-4"><?php echo $session['level']?></p>
+<div class="levelContainer"><div class="exp">    <p id="exp" class="subtitle is-6"><?php echo $session['exp']?>XP</p>
+</div></div>
 
                         </div>
                     </div>
