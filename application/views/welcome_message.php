@@ -182,7 +182,7 @@ function loadLevel()
                             <div id="bigContainer">
                             <p id="LevelStiff" class="title is-4">Level 1
 </p>
-<div class="levelContainer" >                                                        <div class="exp" id="expBar">  <p id="expP" class="subtitle is-6" ><?php echo $session['exp']?>XP</p></div>
+<div class="levelContainer" >                                                        <div class="exp" id="expBar">  <p id="expP" class="subtitle is-6" >
     <script type="text/javascript">
         loadLevel();
     </script>
