@@ -194,7 +194,7 @@ function loadLevel()
                 <?php
 
 
-                if($session['verified']==1){
+                if(1==1){
                     echo '
                     <div id="money" class="money">$<span id="moneyAmt">0.00</span></div>
                   <div class="field has-addons" id="largeButtonGroup">

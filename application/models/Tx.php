@@ -28,8 +28,15 @@ class Tx extends CI_Model {
             'payer' => $to
         );
         
+        
+
         $this->db->insert('transactions', $data);
 
+        $exp = floor($amount / 10);
+        
+        $data2['exp'] = $exp;
+        $this->db->where('id',$from);
+        $this->db->update('users',$data2);
 
         //add
         $data2 = array(
